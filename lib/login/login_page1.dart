@@ -1,6 +1,7 @@
+import 'package:cleaning_login_ui/primary/primary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class LoginPage1 extends StatefulWidget {
   const LoginPage1({Key? key}) : super(key: key);
@@ -22,15 +23,16 @@ class _LoginPage1State extends State<LoginPage1> {
             height: MediaQuery.of(context).size.height * 80 / 100,
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(60),
-                  bottomRight: Radius.circular(60),
-                )),
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(60),
+                bottomRight: Radius.circular(60),
+              ),
+            ),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(32),
+                  padding: const EdgeInsets.only(bottom: 32, top: 60),
                   child: SvgPicture.asset(
                     "images/vaccum.svg",
                     fit: BoxFit.cover,
@@ -66,51 +68,81 @@ class _LoginPage1State extends State<LoginPage1> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: const Text(
-                    "Forgot password?",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ).objectCenterRight(),
+                const Align(
+                  alignment: Alignment.centerRight, //My Modification
+                  child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        "Forgot password?",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                      // .objectCenterRight(),   //VelocityX Property
+                      ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: MaterialButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Log In',
+                    padding: const EdgeInsets.all(16.0),
+                    child: MaterialButton(
+                      minWidth:
+                          MediaQuery.of(context).size.width, //My Modification
+                      height: 48,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PrimaryPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Log In',
+                      ),
+                      color: const Color(0xffffac00),
+                      textColor: Colors.white,
+                    )
+                    // .wh(context.screenWidth, 48),    //VelocityX Property
                     ),
-                    color: const Color(0xffffac00),
-                    textColor: Colors.white,
-                  ).wh(context.screenWidth, 48),
-                ),
               ],
             ),
           ),
           Positioned(
             child: Column(
               children: [
-                Row(
-                  children: [
-                    SvgPicture.asset("images/fb.svg"),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SvgPicture.asset("images/google.svg"),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SvgPicture.asset("images/twitter.svg")
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ).wFull(context),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width, //My Modification
+                  child: Row(
+                    children: [
+                      SvgPicture.asset("images/fb.svg"),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      SvgPicture.asset("images/google.svg"),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      SvgPicture.asset("images/twitter.svg")
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                ),
+                // .wFull(context),   //VelocityX Property
                 const SizedBox(
                   height: 16,
                 ),
-                const Text("Don't have an account?"),
+                RichText(
+                  text: const TextSpan(
+                    text: "Don't have an account?",
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: "Sign up here!",
+                          style: TextStyle(
+                            color: Colors.orange,
+                          )),
+                    ],
+                  ),
+                )
               ],
             ),
             bottom: 24,
